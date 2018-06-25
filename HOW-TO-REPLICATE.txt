@@ -1,0 +1,22 @@
+# This all assumes you're working within `multi-task-kaldi`
+
+(1) train triphones with a GMM system
+- create input_dir // mkdir atai-15min-mod
+- train GMMs // ./run_gmm.sh atai-15min-mod your_run_001
+
+(2) train nnet system (just to generate egs)
+- format dir structure // ./utils/setup_multitask.sh `pwd`/MTL `pwd` "atai-15min-mod"
+- run DNN training // ./run_nnet3_multitask.sh "atai-15min-org" "tri" "1.0" $dim $num_epochs $main_dir
+
+(3) get data out of Kaldi
+- find generated training examples // MTL/exp/atai-15min-mod/nnet3/egs/egs.1.ark
+- convert egs to txt // nnet3-copy-egs ark:egs.1.ark ark,t:egs.1.txt
+
+(4) get data into TensorFlow (github.com/JRMeyer/kaldi-tf)
+- `egs-to-csv.py`
+- `csv-to-tfrecords.py`
+
+(5) train k-means in TensorFlow (github.com/JRMeyer/kaldi-tf)
+- `train_and_eval.py`
+
+(6) 

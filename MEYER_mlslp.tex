@@ -65,7 +65,7 @@ The current work falls into the Monolingual line of research on Multi-Task Learn
 
 \subsection{Data}
 
-The speech corpus used in the following experiments comes from an audiobook of a female speaker of Kyrgyz. A total of 1.59 hours of transcribed speech were used in training, and a held out 15 minutes werew used in testing.
+The speech corpus used in the following experiments comes from an audiobook of a female speaker of Kyrgyz. A total of 1.59 hours of transcribed speech were used in training, and a held out 15 minutes were used in testing.
 
 
 \subsection{Model Building}
@@ -130,8 +130,9 @@ The experimental results are shown in Table (\ref{tab:results}) as percent Word 
       & \multicolumn{2}{c}{ \textit{Amount of Training Data}}\\
       & 1.59 Hours & 0.5 Hours \\
       \midrule
-      STL Baseline                          & 52 \% WER      & \\
-      \textbf{+ TensorFlow Clusters}        & 50 \% WER      &\\
+      STL Baseline                              & 52.68 \% WER      & \\
+      \textbf{+ 250 TensorFlow Clusters}        & 50.83 \% WER      &\\
+      \textbf{+ 500 TensorFlow Clusters}        & 50.63 \% WER      &\\
       \midrule
       \bottomrule
     \end{tabular}
@@ -143,9 +144,6 @@ The experimental results are shown in Table (\ref{tab:results}) as percent Word 
 
 \section{Discussion}
 
-
-
-\section{Conclusions}
 
 
 
