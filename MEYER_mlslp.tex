@@ -81,7 +81,7 @@ During testing, \textit{only} the main task is used. This highlights the purpose
 
 \subsubsection{Baseline Model}
 
-The Single-Task baseline model has an identical architecture to the Multi-Task models without the additional task (5 hidden layers, 500-dimensional layers, ReLU activations, same linear objective function).
+The Single-Task baseline model has an identical architecture to the Multi-Task models without the additional task (5 hidden layers, 1024-dimensional layers, ReLU activations, same linear objective function).
 \subsubsection{Auxiliary Task Discovery}
 
 The new labels for the auxiliary task were discovered as such:
@@ -128,11 +128,12 @@ The experimental results are shown in Table (\ref{tab:results}) as percent Word 
     \begin{tabular}{lcc}
       \toprule
       & \multicolumn{2}{c}{ \textit{Amount of Training Data}}\\
-      & 1.59 Hours & 0.5 Hours \\
+      & 1.59 hours & 15 minutes \\
       \midrule
-      STL Baseline                              & 52.68 \% WER      & \\
-      \textbf{+ 250 TensorFlow Clusters}        & 50.83 \% WER      &\\
-      \textbf{+ 500 TensorFlow Clusters}        & 50.63 \% WER      &\\
+      STL Baseline                              & 49.56 \% WER      & \\
+      \textbf{+ 250 TensorFlow Clusters}        & 48.88 \% WER           &\\
+      \textbf{+ 500 TensorFlow Clusters}        & 47.90 \% WER      &\\
+      \textbf{+ 1000 TensorFlow Clusters}        & 49.07 \% WER      &\\
       \midrule
       \bottomrule
     \end{tabular}
@@ -170,3 +171,14 @@ This material is based upon work supported by the National Science Foundation Gr
 
 
 \end{document}
+%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_1000clusters.txt <==
+%% %WER 82.73 [ 848 / 1025, 9 ins, 262 del, 577 sub ] MTL/exp/nnet3/multitask/decode/wer_9
+
+%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_250clusters..txt <==
+%% %WER 83.71 [ 858 / 1025, 9 ins, 283 del, 566 sub ] MTL/exp/nnet3/multitask/decode/wer_9
+
+%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_500clusters.txt <==
+%% %WER 82.83 [ 849 / 1025, 7 ins, 265 del, 577 sub ] MTL/exp/nnet3/multitask/decode/wer_9
+
+%% ==> WER_nnet3_multitask_atai-15min-org_tri_1024_2epoch_BASELINE.txt <==
+%% %WER 83.51 [ 856 / 1025, 4 ins, 287 del, 565 sub ] MTL/exp/nnet3/multitask/decode/wer_9
