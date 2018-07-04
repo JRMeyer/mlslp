@@ -7,6 +7,7 @@
 \usepackage{textcomp}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{hyperref}
 
 \title{Unsupervised Task Discovery in Multi-Task Acoustic Modeling}
 
@@ -22,7 +23,7 @@
 % 
 \begin{abstract}
 
-  This study investigates low-resource acoustic modeling in Automatic Speech Recognition via Multi-Task Learning (MTL). The main question of this research is: \textit{How can we automatically discover useful auxiliary tasks to help train a neural network acoustic model?} Past work has already shown that linguist-crafted auxiliary tasks (either via acoustic landmarks or mapping to a source language) can help train more robust acoustic models in low-resource settings. However, to create these tasks the researcher must have access to expert linguistic knowledge. The following study demonstrates that WER in a low-resource setting can improve if the acoustic model is trained with an auxiliary task discovered via k-means clustering. Specifically, I train a Multi-Task DNN acoustic model, such that the model has multiple, separate output layers which represent (1) traditional phonemes defined by a phonetic decision tree or (2) clusters of audio discovered by standard k-means clustering. Given only 1.59 hours of audio, I observed a 1.66\% decrease in Word Error Rate when a second task was added during training. In an extremely limited data setting, I observed a .78\% decrease in WER. While these increases are small, this line of research promises easily scalable and unsupervised improvement in WER, and as such I believe warrants further exploration.
+  This study investigates low-resource acoustic modeling in Automatic Speech Recognition via Multi-Task Learning (MTL). The main question of this research is: \textit{How can we automatically discover useful auxiliary tasks to help train a neural network acoustic model?} Past work has already shown that linguist-crafted auxiliary tasks (either via acoustic landmarks or mapping to a source language) can help train more robust acoustic models in low-resource settings. However, to create these tasks the researcher must have access to expert linguistic knowledge. The following study demonstrates that WER in a low-resource setting can improve if the acoustic model is trained with an auxiliary task discovered via k-means clustering. Specifically, we train a Multi-Task DNN acoustic model, such that the model has multiple, separate output layers which represent (1) traditional phonemes defined by a phonetic decision tree or (2) clusters of audio discovered by standard k-means clustering. Given only 1.59 hours of audio, we observed a 1.66\% decrease in Word Error Rate when a second task was added during training. In an extremely limited data setting, we observed a .78\% decrease in WER. While these increases are small, this line of research promises easily scalable and unsupervised improvement in WER, and as such we believe warrants further exploration.
 
   
 \end{abstract}
@@ -51,7 +52,7 @@ The target language is Kyrgyz, and the data comes from an audiobook provided to 
 
 \section{Background}
 
-Past work on MTL for acoustic modeling can be divided into two main categories: monolingual vs. multilingual. Multilingual MTL acoustic modeling involves training a single DNN with multiple output layers, where each output layer represents triphones from one language. Monolingual MTL acoustic modeling involves designing multiple tasks for a single language, where each task is linguistically relevant (eg. triphones vs. monophones vs graphemes). Multilingual MTL aims for domain transfer, but monolingual MTL aims for robust generalization from the training data.
+Past work on MTL for acoustic modeling can be divided into two main categories: monolingual vs. multilingual. Multilingual MTL acoustic modeling involves training a single DNN with multiple output layers, where each output layer represents triphones from a different language. Monolingual MTL acoustic modeling involves designing multiple tasks for a single language, where each task is a linguistically relevant classification: predicting triphones vs. predicting monophones vs. predicting graphemes. Multilingual MTL aims for domain transfer, but monolingual MTL aims for robust generalization from the training data.
 
 The earliest examples of multilingual MTL for ASR can be found in \cite{huang2013} and \cite{heigold2013}. These authors were interested in improving performance on all languages, not just one target language. During IARPA's Babel program, bottleneck MRASTA feature extraction was developed for low-resource languages, which relies on multi-task learning \cite{tuske2014multilingual}. More recently, \cite{grezl2016} studied the effect of adding data from a single, well-resourced language to some low-resourced language.
 
@@ -70,18 +71,7 @@ The speech corpus used in the following experiments comes from an audiobook of a
 
 \subsection{Model Building}
 
-All models are trained in Kaldi as \texttt{nnet3} Time-Delay Neural Networks (TDNNs) \cite{povey2011,peddinti2015}. The main neural net run script used in this paper can be found at www.github.com/JRMeyer/multi-task-kaldi/blob/master/mtk/run\_nnet3\_multitask.sh. The main GMM alignment script can be found at www.github.com/JRMeyer/multi-task-kaldi/blob/master/mtk/run\_gmm.sh.
 
-During GMM alignment, monophones were allotted 1,000 Gaussian components, and trained over 25 iterations of EM. These monophones were then expanded into context-dependent triphones via a phonetic decision tree, with a maximum of 2,000 leaves \& 5,000 Gaussians. The resulting tied-state triphones are then trained over 25 iterations of EM. Given the alignments from the GMM-HMM models, a 5-layer, 1024-dimensional TDNN is trained over 2 epochs of backprop on a single GPU instance.
-
-The auxiliary task (i.e. cluster labels from TensorFlow) is implemented as a separate output and penultimate layer. All other hidden layers of the TDNN are trained in parallel. A declining learning rate was used, with an initial $\alpha_{initial}=0.0015$ and a final $\alpha_{final}=0.00015$. A $ReLU$ activation function was used at every layer.
-
-During testing, \textit{only} the main task is used. This highlights the purpose of the extra task: to force the learning of robust representations in the hidden layers during training; the auxiliary task serves as ``training wheels'' which are removed once the net is ready.
-
-
-\subsubsection{Baseline Model}
-
-The Single-Task baseline model has an identical architecture to the Multi-Task models without the additional task (5 hidden layers, 1024-dimensional layers, ReLU activations, same linear objective function).
 \subsubsection{Auxiliary Task Discovery}
 
 The new labels for the auxiliary task were discovered as such:
@@ -100,14 +90,24 @@ The new labels for the auxiliary task were discovered as such:
   \item For each training example, its discovered cluster is assigned as new target label
   \end{itemize}
 
-\item Mapping Kaldi targets onto TensorFlow clusters
+\item Mapping Kaldi targets onto TensorFlow k-means clusters
    \begin{itemize}
-   \item Given all training examples for a Kaldi target label, the most commonly assigned TensorFlow cluster is chosen as new target label. In this way, all training examples assigned the same label in Kaldi will share the same cluster from TensorFlow, however, the key addition is that multiple targets from Kaldi may be mapped onto a single TensorFlow cluster.
+   \item Given all training examples for a Kaldi target label, the most commonly assigned k-means cluster centroid is chosen as new target label. In this way, all training examples assigned the same label in Kaldi will share the same cluster from TensorFlow, however, the key addition is that multiple targets from Kaldi may be mapped onto a single TensorFlow cluster.
   \end{itemize} 
 \end{itemize}
 
+During GMM alignment, monophones were allotted 1,000 Gaussian components, and trained over 25 iterations of EM. These monophones were then expanded into context-dependent triphones via a phonetic decision tree, with a maximum of 2,000 leaves \& 5,000 Gaussians. The resulting tied-state triphones are then trained over 25 iterations of EM. The main GMM alignment script can be found on GitHub.\footnote{GMM alignment scipt: \url{www.github.com/JRMeyer/multi-task-kaldi/blob/master/mtk/run_gmm.sh}}.
+
+Final models are trained in Kaldi as \texttt{nnet3} Time-Delay Neural Networks (TDNNs) via a cross-entropy objective function \cite{povey2011,peddinti2015}. Given the alignments from the GMM-HMM models, a 5-layer, 1024-dimensional TDNN is trained over 2 epochs of backprop on a single GPU instance. The main neural net run script used in this paper can be found on GitHub.\footnote{DNN training scipt: \url{www.github.com/JRMeyer/multi-task-kaldi/blob/master/mtk/run_nnet3_multitask.sh}}.
+
+Each TDNN acoustic model is trained with two output tasks: (1) one output layer has standard context-dependent triphone targets, and (2) the other output layer has targets discovered via k-means clustering. As such, the auxiliary task (i.e. target labels discovered via k-means clustering) is implemented as a separate output and penultimate layer. All other hidden layers of the TDNN are trained in parallel. A declining learning rate was used, with an initial $\alpha_{initial}=0.0015$ and a final $\alpha_{final}=0.00015$. A $ReLU$ activation function was used at every layer.
+
+During testing, \textit{only} the main task is used. This highlights the purpose of the extra task: to force the learning of robust representations in the hidden layers during training; the auxiliary task serves as ``training wheels'' which are removed once the net is ready.
 
 
+\subsubsection{Baseline Model}
+
+The Single-Task baseline model has an identical architecture to the Multi-Task models without the additional task (5 hidden layers, 1024-dimensional layers, ReLU activations, same linear objective function).
 
 
 
@@ -129,10 +129,10 @@ The experimental results are shown in Table (\ref{tab:results}) as percent Word 
       & \multicolumn{2}{c}{ \textit{Amount of Training Data}}\\
       & 1.59 hours & 15 minutes \\
       \midrule
-      STL Baseline                              & 49.56       &  83.51 \\
-      \textbf{+ 250 TensorFlow Clusters}        & 48.88            & 83.71 \\
-      \textbf{+ 500 TensorFlow Clusters}        & 47.90       & 82.83 \\
-      \textbf{+ 1000 TensorFlow Clusters}        & 49.07       & 82.73 \\
+      STL Baseline (context-dependent triphone targets)                            & 49.56       &  83.51 \\
+      \textbf{+ 250 k-means cluster targets}        & 48.88            & 83.71 \\
+      \textbf{+ 500 k-means cluster targets}        & 47.90       & 82.83 \\
+      \textbf{+ 1000 k-means cluster targets}        & 49.07       & 82.73 \\
       \midrule
       \bottomrule
     \end{tabular}
