@@ -23,12 +23,12 @@
 % 
 \begin{abstract}
 
-  This study investigates low-resource acoustic modeling in Automatic Speech Recognition via Multi-Task Learning (MTL). The main question of this research is: \textit{How can we automatically discover useful auxiliary tasks to help train a neural network acoustic model?} Past work has already shown that linguist-crafted auxiliary tasks (either via acoustic landmarks or mapping to a source language) can help train more robust acoustic models in low-resource settings. However, to create these tasks the researcher must have access to expert linguistic knowledge. The following study demonstrates that WER in a low-resource setting can improve if the acoustic model is trained with an auxiliary task discovered via k-means clustering. Specifically, we train a Multi-Task DNN acoustic model, such that the model has multiple, separate output layers which represent (1) traditional phonemes defined by a phonetic decision tree or (2) clusters of audio discovered by standard k-means clustering. Given only 1.59 hours of audio, we observed a 1.66\% decrease in Word Error Rate when a second task was added during training. In an extremely limited data setting, we observed a .78\% decrease in WER. While these increases are small, this line of research promises easily scalable and unsupervised improvement in WER, and as such we believe warrants further exploration.
+  This study investigates acoustic model training via Multi-Task Learning, where the auxiliary tasks are discovered in an unsupervised setting. Past work has shown that linguist-crafted auxiliary tasks can help train more robust acoustic models in low-resource settings. However, to create these tasks the researcher must have access to expert linguistic knowledge. The following study demonstrates that we can improve accuracy in a low-resource setting by training the acoustic model with an auxiliary task discovered via k-means clustering. Specifically, we train a Multi-Task DNN acoustic model, such that the model has two separate output layers which represent (1) traditional phonemes defined by a phonetic decision tree or (2) clusters of audio discovered by standard k-means clustering. Given only 1.59 hours of audio, we observed a 1.66\% improvement in Word Error Rate, and in an extremely limited data setting, we observed a .78\% improvement in WER. While these increases are small, this line of research promises easily scalable and unsupervised improvement in WER, and as such we believe warrants further exploration.
 
   
 \end{abstract}
 
-\noindent\textbf{Index Terms}: speech recognition, multi-task learning, acoustic modeling
+\noindent\textbf{Index Terms}: unsupervised learning, multi-task learning, acoustic modeling
 
 
 
@@ -36,9 +36,8 @@
 
 \section{Introduction}
 
-In the Multi-Task Learning (MTL) framework, data from a related task updates hidden layers in parallel with the target task \cite{caruana1997}. A task here is defined as a mapping of data to labels, and as such one can create a new task by creating new labels for existing data. In general it is difficult to create relevant labels for a new classification problem. The current study investigates auxiliary tasks which are not hand-crafted by an expert or human, but automatically discovered from training data via unsupervised clustering (i.e. k-means).
+In the Multi-Task Learning (MTL) framework, data from a related task updates hidden layers in parallel with the target task \cite{caruana1997}. A task here is defined as a mapping of data to labels, and as such we can create a new task by creating new labels for existing data. In general it is difficult to create relevant labels for a new classification problem. The current study investigates auxiliary tasks which are not hand-crafted by an expert or human, but automatically discovered from training data via unsupervised clustering (i.e. k-means clustering). The cluster identities are then assigned as target labels for DNN training via backpropagation.
 
-The target language is Kyrgyz, and the data comes from an audiobook provided to the author by the Bizdin.kg project.
 
 \begin{figure}[!htbp]
   \centering
@@ -52,7 +51,7 @@ The target language is Kyrgyz, and the data comes from an audiobook provided to 
 
 \section{Background}
 
-Past work in Mutli-Task acoustic modeling falls into two categories: monolingual vs. multilingual. Multilingual MTL acoustic modeling involves training a single DNN with multiple output layers, where each output layer represents triphones from a different language. Monolingual MTL acoustic modeling involves designing multiple tasks for a single language, where each task is a linguistically relevant classification: predicting triphones vs. predicting monophones vs. predicting graphemes. Multilingual MTL aims for domain transfer, but monolingual MTL aims for robust generalization from the training data.
+Past work in Mutli-Task acoustic modeling falls into two categories: monolingual vs. multilingual. Multilingual MTL acoustic modeling involves training a single DNN with multiple output layers, where each output layer represents triphones from a different language. Monolingual MTL acoustic modeling involves designing multiple tasks for a single language, where each task is a linguistically relevant classification: predicting triphones vs. predicting monophones vs. predicting graphemes. Multilingual MTL aims for language transfer, whereas monolingual MTL aims for generalization from the training data to unseen data.
 
 %% The earliest examples of multilingual MTL for ASR can be found in \cite{huang2013} and \cite{heigold2013}. These authors were interested in improving performance on all languages, not just one target language. During IARPA's Babel program, bottleneck MRASTA feature extraction was developed for low-resource languages, which relies on multi-task learning \cite{tuske2014multilingual}. More recently, \cite{grezl2016} studied the effect of adding data from a single, well-resourced language to some low-resourced language.
 
@@ -71,9 +70,9 @@ The speech corpus used in the following experiments comes from an audiobook of a
 
 \subsection{Model Building}
 
-Our experimental acoustic models are deep neural networks which have two separate output layers instead of just one. The two output layers encode target labels for either (1) the main task (i.e. standard Kaldi triphone IDs) or (2) an auxiliary task (i.e. target labels which have been discovered via k-means clustering).
+Our experimental acoustic models are deep neural networks which have two separate output layers instead of just one (c.f. Figure (1)). The two output layers encode target labels for either (1) the main task (i.e. standard Kaldi triphone IDs) or (2) an auxiliary task (i.e. target labels which have been discovered via k-means clustering).
 
-The intuition behind using k-means clustering is the following: unsupervised class discovery will surely lead to different classes compared to standard triphone GMM-HMM state alignment via the Baum-Welch algorithm. These k-means class assignments will be different, but hopefully similar enough that the clusters encode some linguistically relevant categories. If the classes are in fact linguistically relevant, then according to past work in MTL, we should observe improved performance on the main task.
+The intuition behind using k-means clustering is the following: unsupervised class discovery will surely lead to different classes compared to standard triphone GMM-HMM state alignment via the Baum-Welch algorithm. These k-means class assignments will be hopefully similar enough to the standard triphone labels that the clusters encode linguistically relevant categories. If the clusters are in fact linguistically relevant, then according to past work in MTL we should observe improved performance on the main task.
 
 Instead of using raw k-means cluster labels for the auxiliary task, we first map all training examples which share a HMM triphone label to the same cluster. This ensures a certain degree of similarity between the main and auxiliary task. This effectively results in a merging of triphone labels, hopefully leading to a higher degree of linguistic abstraction.
 
@@ -83,22 +82,23 @@ Instead of using raw k-means cluster labels for the auxiliary task, we first map
 The new labels for the auxiliary task were discovered as such:
 
 \begin{itemize}
-\item Kaldi Feature Extraction
+\item Feature Extraction
   \begin{itemize}
   \item 13 PLP features extracted via 25ms Hamming windows at a 10ms shift
   \item Resulting vectors spliced to have context of 16 frames to the left and 12 frames to the right (i.e. 29 frames per training example)
   \end{itemize}
 
-\item TensorFlow k-means Clustering
+\item k-means Clustering
   \begin{itemize}
   \item CMVN normalization applied to each training example
   \item Pre-set number of clusters discovered via TensorFlow's standard k-means clustering
   \item For each training example, its discovered cluster is assigned as new target label
   \end{itemize}
 
-\item Mapping Kaldi targets onto TensorFlow k-means clusters
+\item Mapping triphone states onto k-means clusters
    \begin{itemize}
-   \item Given all training examples for a Kaldi target label, the most commonly assigned k-means cluster centroid is chosen as new target label. In this way, all training examples assigned the same label in Kaldi will share the same cluster from TensorFlow, however, the key addition is that multiple targets from Kaldi may be mapped onto a single TensorFlow cluster.
+   \item Given all training examples for a given triphone state, the most commonly assigned k-means centroid is chosen as new target label for those examples. As such, training examples aligned to the same triphone will share the same k-means cluster, and examples from multiple triphones may be mapped onto the same cluster.
+     
   \end{itemize} 
 \end{itemize}
 
@@ -149,7 +149,7 @@ All results come from performance on the same held-out 30-minute section of Kyrg
 
 When 1.59 hours of training data are used, every experimental condition shows improvement over the baseline, and 500 clusters shows the most improvement. In the extremely limited-data condition where only 15 minutes of data are used, two of the three experiments showed improvement over the baseline, and we find a trend where more clusters correlates to more improvement.
 
-
+This approach warrants further investigation, because we already observe improvements with very little hyper-parameter tweaking. We plan to investigate this auxiliary task discovery by adjusting (1) number of clusters, (2) relative weightinf of main task to auxiliary task during backprop, (3) different feature projections before clustering, and other avenues.
 
 
 
