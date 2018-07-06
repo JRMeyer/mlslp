@@ -85,19 +85,19 @@ The new labels for the auxiliary task were discovered as such:
 \item Feature Extraction
   \begin{itemize}
   \item 13 PLP features extracted via 25ms Hamming windows at a 10ms shift
-  \item Resulting vectors spliced to have context of 16 frames to the left and 12 frames to the right (i.e. 29 frames per training example)
+  \item Resulting vectors spliced to have context of 16 frames to the left and 12 frames to the right
+  \item CMVN normalization applied to each training example
   \end{itemize}
 
 \item k-means Clustering
   \begin{itemize}
-  \item CMVN normalization applied to each training example
-  \item Pre-set number of clusters discovered via TensorFlow's standard k-means clustering
-  \item For each training example, its discovered cluster is assigned as new target label
+  \item A set number of clusters is discovered via TensorFlow's standard k-means clustering.\footnote{TensorFlow k-means scripts: \url{https://github.com/JRMeyer/kaldi-tf}}
+
   \end{itemize}
 
 \item Mapping triphone states onto k-means clusters
    \begin{itemize}
-   \item Given all training examples for a given triphone state, the most commonly assigned k-means centroid is chosen as new target label for those examples. As such, training examples aligned to the same triphone will share the same k-means cluster, and examples from multiple triphones may be mapped onto the same cluster.
+   \item Given all training examples aligned to a given triphone state, the most commonly assigned k-means centroid is chosen as new target label for those examples. As such, training examples aligned to the same triphone will share the same k-means cluster. Multiple triphones may be mapped onto the same cluster.
      
   \end{itemize} 
 \end{itemize}
@@ -106,7 +106,7 @@ During GMM alignment, monophones were allotted 1,000 Gaussian components, and tr
 
 Final models are trained in Kaldi as \texttt{nnet3} Time-Delay Neural Networks (TDNNs) via a cross-entropy objective function \cite{povey2011,peddinti2015}. Given the alignments from the GMM-HMM models, a 5-layer, 1024-dimensional TDNN is trained over 2 epochs of backprop on a single GPU instance. The main neural net run script used in this paper can be found on GitHub.\footnote{DNN training script: \url{www.github.com/JRMeyer/multi-task-kaldi/blob/master/mtk/run_nnet3_multitask.sh}}.
 
-Each TDNN acoustic model is trained with two output tasks: (1) one output layer has standard context-dependent triphone targets, and (2) the other output layer has targets discovered via k-means clustering. As such, the auxiliary task (i.e. target labels discovered via k-means clustering) is implemented as a separate output and penultimate layer. All other hidden layers of the TDNN are trained in parallel. A declining learning rate was used, with an initial $\alpha_{initial}=0.0015$ and a final $\alpha_{final}=0.00015$. A $ReLU$ activation function was used at every layer. During testing, \textit{only} the main task is used. This highlights the purpose of the extra task: to force the learning of robust representations in the hidden layers during training; the auxiliary task serves as ``training wheels'' which are removed once the net is ready.
+Each TDNN acoustic model is trained with two output tasks: (1) one output layer has standard context-dependent triphone targets, and (2) the other output layer has targets discovered via k-means clustering. As such, the auxiliary task (i.e. target labels discovered via k-means clustering) is implemented as a separate output and penultimate layer. All other hidden layers of the TDNN are trained in parallel. A declining learning rate was used, with an initial $\alpha_{initial}=0.0015$ and a final $\alpha_{final}=0.00015$. A $ReLU$ activation function was used at every layer.
 
 
 \subsubsection{Baseline Model}
@@ -117,15 +117,16 @@ The Single-Task baseline model has an identical architecture to the Multi-Task m
 
 \subsection{Preliminary Results}
 
+ During decoding, \textit{only} the main task is used. This highlights the purpose of the auxiliary task: to force the learning of robust representations during training; the auxiliary task serves as ``training wheels'' which are removed once the net is ready.
 
-All results come from performance on the same held-out 30-minute section of Kyrgyz audiobook. Decoding is performed with a bigram backoff language model trained on a Wikipedia Kyrgyz dump, and contains, 103,998 unigrams and 56,6871 bigrams. The bigram language model, lexicon, and main-task decision tree are built into a standard decoding graph (ie. a Weighted Finite State Transducer) in the traditional Kaldi pipeline. The experimental results are shown in Table (\ref{tab:results}) as percent Word Error Rate (WER).
+Below is shown performance on the same held-out 30-minute section of Kyrgyz audiobook. Decoding is performed with a bigram backoff language model trained on a Wikipedia Kyrgyz dump, and contains, 103,998 unigrams and 56,871 bigrams. The bigram language model, lexicon, and main-task decision tree are built into a standard decoding graph (ie. a Weighted Finite State Transducer) in the traditional Kaldi pipeline. The experimental results are shown in Table (\ref{tab:results}) as percent Word Error Rate (WER).
 
 
 \begin{table}[!htbp]
   \centering
   \caption{Word Error Rates (WER\%)}
     \label{tab:results}
-  \begin{adjustbox}{width=.4\textwidth}
+  \begin{adjustbox}{width=.49\textwidth}
     \begin{tabular}{lcc}
       \toprule
       & \multicolumn{2}{c}{ \textit{Amount of Training Data}}\\
@@ -147,9 +148,9 @@ All results come from performance on the same held-out 30-minute section of Kyrg
 \section{Discussion}
 
 
-When 1.59 hours of training data are used, every experimental condition shows improvement over the baseline, and 500 clusters shows the most improvement. In the extremely limited-data condition where only 15 minutes of data are used, two of the three experiments showed improvement over the baseline, and we find a trend where more clusters correlates to more improvement.
+When 1.59 hours of training data are used, every experimental condition shows improvement over the baseline, and 500 clusters shows the most improvement. In the extremely limited data condition (15 minutes of data), two of the three experiments showed improvement over the baseline, and we find a trend where more clusters correlates to more improvement.
 
-This approach warrants further investigation, because we already observe improvements with very little hyper-parameter tweaking. We plan to investigate this auxiliary task discovery by adjusting (1) number of clusters, (2) relative weightinf of main task to auxiliary task during backprop, (3) different feature projections before clustering, and other avenues.
+This approach warrants further investigation, because we already observe improvements with very little hyper-parameter tweaking. We plan to investigate this auxiliary task discovery by adjusting (1) number of clusters, (2) relative weighting of main task to auxiliary task during backprop, (3) different feature projections before clustering, and other avenues.
 
 
 

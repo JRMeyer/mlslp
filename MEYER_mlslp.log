@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.22)  6 JUL 2018 04:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.1.22)  6 JUL 2018 08:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,6 +553,12 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 85.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
+Underfull \hbox (badness 10000) in paragraph at lines 94--94
+[][][]\OT1/ptm/m/n/8 TensorFlow k-means scripts: []$\OT1/pcr/m/n/8 https : / / 
+github . com /
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 105--105
 [][][]\OT1/ptm/m/n/8 GMM align-ment script: []$\OT1/pcr/m/n/8 www . github . co
 m / JRMeyer /
@@ -569,20 +575,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--107
 \OT1/pcr/m/n/8 multi-[]task-[]kaldi / blob / master / mtk / run _ nnet3 _
  []
 
+
+Overfull \hbox (9.40399pt too wide) in paragraph at lines 142--143
+ [] 
+ []
+
 [2] (./MEYER_mlslp.bbl)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 176.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 176.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 177.
+ [3
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
  (./MEYER_mlslp.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 176.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 176.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `MEYER_mlslp.out' has not changed.
 (rerunfilecheck)             Checksum: 741682DE90B2088E39233A7699F6880E;632.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 176.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 8613 strings out of 492990
- 128716 string characters out of 6135005
+ 8614 strings out of 492990
+ 128727 string characters out of 6135005
  218711 words of memory out of 5000000
  11985 multiletter control sequences out of 15000+600000
  30230 words of font info for 72 fonts, out of 8000000 for 9000
@@ -595,10 +608,10 @@ onts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/
 utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on MEYER_mlslp.pdf (3 pages, 131953 bytes).
+Output written on MEYER_mlslp.pdf (3 pages, 132465 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
- 31 named destinations out of 1000 (max. 500000)
+ 145 PDF objects out of 1000 (max. 8388607)
+ 129 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  94 words of extra memory for PDF output out of 10000 (max. 10000000)
 
