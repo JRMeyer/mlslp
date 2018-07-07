@@ -43,7 +43,7 @@ In the Multi-Task Learning (MTL) framework, data from a related task updates hid
   \centering
 \minipage{0.5\textwidth}
   \includegraphics[width=\linewidth]{figs/heigold-2013-dnn-c.png}
-  \caption{Multi-Task Acoustic Model Architecture. Audio features are extracted via standard Kaldi scripts and then imported into TensorFlow. Standard k-means clustering is performed in TensorFlow, and the cluster identities are then exported back into Kaldi as targets for an auxiliary task. The final Multi-Task acoustic model is trained within Kaldi.}
+  \caption{Multi-Task Acoustic Model Architecture. Audio features are extracted via standard Kaldi scripts and then imported into TensorFlow. Standard k-means clustering is performed in TensorFlow, and the cluster identities are then exported back into Kaldi as targets for an auxiliary task. The final Multi-Task acoustic model is trained within Kaldi. Figure reproduced from \cite{heigold2013} with permission.}
     \label{fig:mtl-dnn}
   \endminipage\hfill
 \end{figure}
@@ -55,7 +55,7 @@ Past work in Mutli-Task acoustic modeling falls into two categories: monolingual
 
 %% The earliest examples of multilingual MTL for ASR can be found in \cite{huang2013} and \cite{heigold2013}. These authors were interested in improving performance on all languages, not just one target language. During IARPA's Babel program, bottleneck MRASTA feature extraction was developed for low-resource languages, which relies on multi-task learning \cite{tuske2014multilingual}. More recently, \cite{grezl2016} studied the effect of adding data from a single, well-resourced language to some low-resourced language.
 
-With regards to monolingual MTL, research has aimed to find tasks (from the same language) which are phonetically relevant to the main task \cite{bell2015}. The aim being to improve generalization to new data. Both \cite{seltzer2013} and later \cite{huang2015} looked at a very similar approach, defining additional auxiliary tasks in MTL via broad, abstract phonetic categories for English. With regards to low-resource languages, \cite{chen2014} and later \cite{chen2015} created extra tasks using graphemes or a universal phoneset as extra targets.
+With regards to monolingual MTL, research has aimed to find tasks (from the same language) which are phonetically relevant to the main task \cite{bell2015}. The aim being to improve generalization to new data. Both \cite{seltzer2013} and later \cite{huang2015} looked at a very similar approach, defining additional auxiliary tasks in MTL via broad, abstract phonetic categories for English. With regards to low-resource languages, \cite{chen2014} and later \cite{chen2015} created extra tasks using graphemes or a universal phoneset as extra targets. Recently, \cite{toshniwal2017multitask} investigated this approach in an end-to-end framework.
 
 The current work continues the monolingual line of research on Multi-Task Learning for acoustic modeling. We investigate automatic, unsupervised auxiliary task discovery in a low-resource setting.
 
@@ -119,7 +119,7 @@ The Single-Task baseline model has an identical architecture to the Multi-Task m
 
  During decoding, \textit{only} the main task is used. This highlights the purpose of the auxiliary task: to force the learning of robust representations during training; the auxiliary task serves as ``training wheels'' which are removed once the net is ready.
 
-Below is shown performance on the same held-out 30-minute section of Kyrgyz audiobook. Decoding is performed with a bigram backoff language model trained on a Wikipedia Kyrgyz dump, and contains, 103,998 unigrams and 56,871 bigrams. The bigram language model, lexicon, and main-task decision tree are built into a standard decoding graph (ie. a Weighted Finite State Transducer) in the traditional Kaldi pipeline. The experimental results are shown in Table (\ref{tab:results}) as percent Word Error Rate (WER).
+Below is shown performance on the same held-out 30-minute section of Kyrgyz audiobook. Decoding is performed with a bigram backoff language model trained on a Wikipedia Kyrgyz dump, and contains, 103,998 unigrams and 56,871 bigrams. The bigram language model, lexicon, and main-task decision tree are built into a standard decoding graph (ie. a Weighted Finite State Transducer) in the traditional Kaldi pipeline. The experimental results are shown in Table (\ref{tab:results}) as percent Word Error Rate (WER). The WER of the best performing model in each data condition is displayed in bold below.
 
 
 \begin{table}[!htbp]
@@ -134,8 +134,8 @@ Below is shown performance on the same held-out 30-minute section of Kyrgyz audi
       \midrule
       STL Baseline (context-dependent triphone targets)                            & 49.56       &  83.51 \\
       \textbf{+ 250 k-means cluster targets}        & 48.88            & 83.71 \\
-      \textbf{+ 500 k-means cluster targets}        & 47.90       & 82.83 \\
-      \textbf{+ 1000 k-means cluster targets}        & 49.07       & 82.73 \\
+      \textbf{+ 500 k-means cluster targets}        & \textbf{47.90}       & 82.83 \\
+      \textbf{+ 1000 k-means cluster targets}        & 49.07       & \textbf{82.73} \\
       \midrule
       \bottomrule
     \end{tabular}
