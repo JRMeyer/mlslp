@@ -152,14 +152,14 @@ When 1.59 hours of training data are used, every experimental condition shows im
 
 This approach warrants further investigation, because we already observe improvements with very little hyper-parameter tweaking. We plan to investigate this auxiliary task discovery by adjusting (1) number of clusters, (2) relative weighting of main task to auxiliary task during backprop, (3) different feature projections before clustering, and other avenues.
 
-
+Reviewers for the 2018 MLSLP Workshop recommended replicating these findings on a standard dataset (e.g. one of the Babel languages), which we intend to do. Also it was recommended to show which triphones were clustered together, to investigate how linguistically real the clusters are. This is also currently being investigated. 
 
 
 
 
 \section{Acknowledgements}
 
-I'd like to thank Dan Povey for answering my questions on the kaldi-help Google Group. I'd like to also thank Chorobek Saadanbekov and Murat Jumashev for making the Kyrgyz audiobook available to me through the Bizdin.kg group.
+I'd like to thank Dan Povey for Kaldi help, and Chorobek Saadanbekov for the Kyrgyz audiobook.
 
 This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. (DGE-1746060). Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation.
 
@@ -175,14 +175,3 @@ This material is based upon work supported by the National Science Foundation Gr
 
 
 \end{document}
-%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_1000clusters.txt <==
-%% %WER 82.73 [ 848 / 1025, 9 ins, 262 del, 577 sub ] MTL/exp/nnet3/multitask/decode/wer_9
-
-%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_500clusters.txt <==
-%% %WER 82.83 [ 849 / 1025, 7 ins, 265 del, 577 sub ] MTL/exp/nnet3/multitask/decode/wer_9
-
-%% ==> WER_nnet3_multitask_atai-15min-org_atai-15min-mod_tri_tri_1024_2epoch_1tohalf_250clusters..txt <==
-%% %WER 83.71 [ 858 / 1025, 9 ins, 283 del, 566 sub ] MTL/exp/nnet3/multitask/decode/wer_9
-
-%% ==> WER_nnet3_multitask_atai-15min-org_tri_1024_2epoch_BASELINE.txt <==
-%% %WER 83.51 [ 856 / 1025, 4 ins, 287 del, 565 sub ] MTL/exp/nnet3/multitask/decode/wer_9
