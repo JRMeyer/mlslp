@@ -43,7 +43,7 @@
 \begin{frame}
   \begin{columns}
     %% Leftmost column:
-    \begin{column}{0.3\textwidth}
+    \begin{column}{0.22\textwidth}
       % For some reason we need parbox to get it to arrange the boxes
       % with evenly spaced gaps
       \parbox[t][\columnheight]{.9\textwidth}{
@@ -107,7 +107,7 @@
 
     %% Next column:
     %% ============================================================
-    \begin{column}{0.3\textwidth}
+    \begin{column}{0.22\textwidth}
       \parbox[t][\columnheight]{.9\textwidth}{
         \vspace{.5cm}
         \begin{block}{\boxnumber Alignment}
@@ -196,7 +196,7 @@
     
     %% Next column:
     %% ============================================================
-    \begin{column}{0.3\textwidth}
+    \begin{column}{0.22\textwidth}
       \parbox[t][\columnheight]{.9\textwidth}{
 
         \vspace{.5cm}               % automatically nicely spaced out.
@@ -209,24 +209,67 @@
             \begin{adjustbox}{width=.9\textwidth}
               \begin{tabular}{lccc}
                 \toprule
-                & \multicolumn{3}{c}{ \textit{Weighting Scheme ($\alpha$)}}\\
+                & \multicolumn{3}{c}{ \textit{Weighting Scheme ($(1-\alpha)*main + \alpha*aux$)}}\\
                 & $\alpha = .9 $ & $\alpha = .8 $ & $\alpha = .7 $\\
                 \midrule
                 Single Task Baseline  &  \multicolumn{3}{c}{$57.10 $ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
                 \textbf{+ 256 k-means cluster targets}  &  $57.71 $ \raisebox{.33\height}{\footnotesize{$\pm 1.59$}}   &  $57.27 $ \raisebox{.33\height}{\footnotesize{$\pm 1.60$}}     & $57.89 $ \raisebox{.33\height}{\footnotesize{$\pm 1.29$}} \\
                 \textbf{+ 1024 k-means cluster targets}   & $57.74 $ \raisebox{.33\height}{\footnotesize{$\pm 3.17$}}    & $57.08 $ \raisebox{.33\height}{\footnotesize{$ \pm 2.62$}}    & $57.77 $ \raisebox{.33\height}{\footnotesize{$\pm .79$}}  \\
-                \textbf{+ 4096 k-means cluster targets}   &      &      & \\
+                \textbf{+ 4096 k-means cluster targets}   &  $57.13 $ \raisebox{.33\height}{\footnotesize{$\pm 2.45$}}  & $57.76 $ \raisebox{.33\height}{\footnotesize{$\pm 1.61 $}}   &   $57.72 $ \raisebox{.33\height}{\footnotesize{$\pm .64$}}  \\
                 \midrule
                 \bottomrule
               \end{tabular}
             \end{adjustbox}
           \end{table}
         \end{block}
+
         
         \vspace{.5cm}
+
+
+        \begin{figure}
+          \centering
+          \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.95\linewidth]{figs/baseline.png}
+            \caption{Single Task Baseline}
+            \label{fig:sub1}
+          \end{subfigure}%
+          \begin{subfigure}{.5\textwidth}
+            \centering
+            \includegraphics[width=.95\linewidth]{figs/1024-clusters.png}
+            \caption{1024-clusters | Alpha == 0.8}
+            \label{fig:sub2}
+          \end{subfigure}
+          \caption{Frame-level Accuracy | LOSS = (1-alpha)*MAIN + (alpha)*AUX }
+          \label{fig:test}
+        \end{figure}
+
         
-        \begin{block}{\boxnumber Results Discussion}
-        \end{block}
+        \vspace{.5cm}
+
+                \begin{block}{\boxnumber Preliminary Results}
+          \begin{table}[!htbp]
+            \centering
+            \caption{Word Error Rates (WER\%)}
+            \label{tab:results}
+            \begin{adjustbox}{width=.9\textwidth}
+              \begin{tabular}{lccc}
+                \toprule
+                & \multicolumn{3}{c}{ \textit{Weighting Scheme ($1*main + \alpha*aux$)}}\\
+                & $\alpha = .9 $ & $\alpha = .8 $ & $\alpha = .7 $\\
+                \midrule
+                Single Task Baseline  &  \multicolumn{3}{c}{$57.10 $ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
+                \textbf{+ 256 k-means cluster targets}  &  $ $ \raisebox{.33\height}{\footnotesize{$\pm $}}   &  $ $ \raisebox{.33\height}{\footnotesize{$\pm $}}     & $ $ \raisebox{.33\height}{\footnotesize{$\pm $}} \\
+                \textbf{+ 1024 k-means cluster targets}   & $ 57.58$ \raisebox{.33\height}{\footnotesize{$\pm 2.68$}}    & $ 56.86$ \raisebox{.33\height}{\footnotesize{$\pm 1.11$}}    & $57.19  $ \raisebox{.33\height}{\footnotesize{$\pm 1.31$}}  \\
+                \textbf{+ 4096 k-means cluster targets}   &  $57.78 $ \raisebox{.33\height}{\footnotesize{$\pm 2.36$}}  & $ 57.51$ \raisebox{.33\height}{\footnotesize{$\pm  2.65$}}   &   $ 57.03$ \raisebox{.33\height}{\footnotesize{$\pm 1.48$}}  \\
+                \midrule
+                \bottomrule
+              \end{tabular}
+            \end{adjustbox}
+          \end{table}
+        \end{block}        
+
         \vspace{.5cm}
 
 
@@ -248,6 +291,18 @@
           \label{fig:test}
         \end{figure}
         
+      } % end of parbox
+    \end{column}
+
+
+
+    
+    %% Next column:
+    %% ============================================================
+    \begin{column}{0.22\textwidth}
+      \parbox[t][\columnheight]{.9\textwidth}{
+
+        \vspace{.5cm}               % automatically nicely spaced out.
         
         \begin{block}{\boxnumber Cluster Contents: A Qualitative Discussion}
           
@@ -303,6 +358,8 @@
         
       } % end of parbox
     \end{column}
+
+
     
   \end{columns}
 \end{frame}
