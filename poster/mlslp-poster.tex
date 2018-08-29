@@ -17,12 +17,12 @@
 \newcommand{\rpm}{\raisebox{.2ex}{$\scriptstyle\rpm$}}
 
 \newlength{\columnheight}
-\setlength{\columnheight}{841mm}
+\setlength{\columnheight}{700mm}
 \setlength{\tabcolsep}{12pt}
 
                   
 % Define the header information
-\title{Unsupervised Task Discovery in Multi-Task Acoustic Modeling \\ \vspace{0.3em} Initial Findings}
+\title{Unsupervised Task Discovery in Multi-Task Acoustic Modeling}
 \author{
   \textit{Josh Meyer}$^*$}
 \institute{$*$ University of Arizona}
@@ -43,10 +43,13 @@
 \begin{frame}
   \begin{columns}
     %% Leftmost column:
-    \begin{column}{0.22\textwidth}
+    \begin{column}{0.23\textwidth}
       % For some reason we need parbox to get it to arrange the boxes
       % with evenly spaced gaps
       \parbox[t][\columnheight]{.9\textwidth}{
+
+        \vspace{1cm}
+        
         \begin{block}{Abstract}
           \begin{itshape}   % italic abstract
             \begin{itemize}
@@ -59,8 +62,8 @@
           \end{itshape}
         \end{block}
 
-        \vspace{.5cm}
-
+        \vfill
+        
         \begin{figure}[!htbp]
           \centering
           \minipage{.66\textwidth}
@@ -70,8 +73,8 @@
           \endminipage\hfill
         \end{figure}
         
-        \vspace{.5cm}
-
+        \vfill
+        
         \begin{block}{\boxnumber Background}
           \begin{itemize}
           \item Multi-Task Learning in Acoustic Modeling
@@ -88,9 +91,8 @@
             \end{itemize}     
           \end{itemize}
         \end{block}
-        \vspace{.5cm}
 
-        \vspace{.5cm}
+        \vfill
 
         \begin{figure}[!htbp]
           \centering
@@ -101,15 +103,18 @@
           \endminipage\hfill
         \end{figure}
 
-        \vspace{.5cm}
+        \vfill
+        
       } % end of parbox
     \end{column}
 
     %% Next column:
     %% ============================================================
-    \begin{column}{0.22\textwidth}
+    \begin{column}{0.23\textwidth}
+
       \parbox[t][\columnheight]{.9\textwidth}{
-        \vspace{.5cm}
+                      \vspace{1cm}
+
         \begin{block}{\boxnumber Alignment}
           \begin{itemize}
           \item Feature Extraction
@@ -123,8 +128,8 @@
           \end{itemize}
         \end{block}
   
-        \vspace{.5cm}
-
+        \vfill
+        
         \begin{figure}[!htbp]
           \centering
           \minipage{.8\textwidth}
@@ -133,7 +138,7 @@
           \endminipage\hfill
         \end{figure}
         
-        \vspace{.5cm}
+        \vfill
         
         \begin{block}{\boxnumber Clustering}
                     
@@ -145,7 +150,7 @@
           \end{itemize}
         \end{block}
 
-        \vspace{.5cm}
+        \vfill
         
         \begin{figure}[!htbp]
           \centering
@@ -155,7 +160,7 @@
           \endminipage\hfill
         \end{figure}
         
-        \vspace{.5cm}
+        \vfill
         
         \begin{block}{\boxnumber Mapping Triphone States $\rightarrow$ Clusters}          
           \begin{itemize}
@@ -166,7 +171,7 @@
           \end{itemize}
         \end{block}
 
-        \vspace{.5cm}
+        \vfill
         
         \begin{figure}[!htbp]
           \centering
@@ -176,8 +181,8 @@
           \endminipage\hfill
         \end{figure}
         
-        \vspace{.5cm}  
-
+        \vfill
+        
         \begin{block}{\boxnumber DNN Training}          
           \begin{itemize}    
           \item DNN Acoustic model training
@@ -189,127 +194,27 @@
             \end{itemize}
           \end{itemize}
         \end{block}
-        \vspace{.5cm}
-       
-      } % end of parbox
-    \end{column}
-    
-    %% Next column:
-    %% ============================================================
-    \begin{column}{0.22\textwidth}
-      \parbox[t][\columnheight]{.9\textwidth}{
 
-        \vspace{.5cm}               % automatically nicely spaced out.
-
-        \begin{block}{\boxnumber Preliminary Results}
-          \begin{table}[!htbp]
-            \centering
-            \caption{Word Error Rates (WER\%)}
-            \label{tab:results}
-            \begin{adjustbox}{width=.9\textwidth}
-              \begin{tabular}{lccc}
-                \toprule
-                & \multicolumn{3}{c}{ \textit{Weighting Scheme ($(1-\alpha)*main + \alpha*aux$)}}\\
-                & $\alpha = .9 $ & $\alpha = .8 $ & $\alpha = .7 $\\
-                \midrule
-                Single Task Baseline  &  \multicolumn{3}{c}{$57.10 $ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
-                \textbf{+ 256 k-means cluster targets}  &  $57.71 $ \raisebox{.33\height}{\footnotesize{$\pm 1.59$}}   &  $57.27 $ \raisebox{.33\height}{\footnotesize{$\pm 1.60$}}     & $57.89 $ \raisebox{.33\height}{\footnotesize{$\pm 1.29$}} \\
-                \textbf{+ 1024 k-means cluster targets}   & $57.74 $ \raisebox{.33\height}{\footnotesize{$\pm 3.17$}}    & $57.08 $ \raisebox{.33\height}{\footnotesize{$ \pm 2.62$}}    & $57.77 $ \raisebox{.33\height}{\footnotesize{$\pm .79$}}  \\
-                \textbf{+ 4096 k-means cluster targets}   &  $57.13 $ \raisebox{.33\height}{\footnotesize{$\pm 2.45$}}  & $57.76 $ \raisebox{.33\height}{\footnotesize{$\pm 1.61 $}}   &   $57.72 $ \raisebox{.33\height}{\footnotesize{$\pm .64$}}  \\
-                \midrule
-                \bottomrule
-              \end{tabular}
-            \end{adjustbox}
-          \end{table}
-        \end{block}
-
-        
-        \vspace{.5cm}
-
-
-        \begin{figure}
-          \centering
-          \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.95\linewidth]{figs/baseline.png}
-            \caption{Single Task Baseline}
-            \label{fig:sub1}
-          \end{subfigure}%
-          \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.95\linewidth]{figs/1024-clusters.png}
-            \caption{1024-clusters | Alpha == 0.8}
-            \label{fig:sub2}
-          \end{subfigure}
-          \caption{Frame-level Accuracy | LOSS = (1-alpha)*MAIN + (alpha)*AUX }
-          \label{fig:test}
-        \end{figure}
-
-        
-        \vspace{.5cm}
-
-                \begin{block}{\boxnumber Preliminary Results}
-          \begin{table}[!htbp]
-            \centering
-            \caption{Word Error Rates (WER\%)}
-            \label{tab:results}
-            \begin{adjustbox}{width=.9\textwidth}
-              \begin{tabular}{lccc}
-                \toprule
-                & \multicolumn{3}{c}{ \textit{Weighting Scheme ($1*main + \alpha*aux$)}}\\
-                & $\alpha = .9 $ & $\alpha = .8 $ & $\alpha = .7 $\\
-                \midrule
-                Single Task Baseline  &  \multicolumn{3}{c}{$57.10 $ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
-                \textbf{+ 256 k-means cluster targets}  &  $ $ \raisebox{.33\height}{\footnotesize{$\pm $}}   &  $ $ \raisebox{.33\height}{\footnotesize{$\pm $}}     & $ $ \raisebox{.33\height}{\footnotesize{$\pm $}} \\
-                \textbf{+ 1024 k-means cluster targets}   & $ 57.58$ \raisebox{.33\height}{\footnotesize{$\pm 2.68$}}    & $ 56.86$ \raisebox{.33\height}{\footnotesize{$\pm 1.11$}}    & $57.19  $ \raisebox{.33\height}{\footnotesize{$\pm 1.31$}}  \\
-                \textbf{+ 4096 k-means cluster targets}   &  $57.78 $ \raisebox{.33\height}{\footnotesize{$\pm 2.36$}}  & $ 57.51$ \raisebox{.33\height}{\footnotesize{$\pm  2.65$}}   &   $ 57.03$ \raisebox{.33\height}{\footnotesize{$\pm 1.48$}}  \\
-                \midrule
-                \bottomrule
-              \end{tabular}
-            \end{adjustbox}
-          \end{table}
-        \end{block}        
-
-        \vspace{.5cm}
-
-
-        \begin{figure}
-          \centering
-          \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.95\linewidth]{figs/baseline.png}
-            \caption{A subfigure}
-            \label{fig:sub1}
-          \end{subfigure}%
-          \begin{subfigure}{.5\textwidth}
-            \centering
-            \includegraphics[width=.95\linewidth]{figs/1024-clusters.png}
-            \caption{A subfigure}
-            \label{fig:sub2}
-          \end{subfigure}
-          \caption{A figure with two subfigures}
-          \label{fig:test}
-        \end{figure}
+        \vfill
         
       } % end of parbox
     \end{column}
 
-
-
     
     %% Next column:
     %% ============================================================
-    \begin{column}{0.22\textwidth}
+    \begin{column}{0.23\textwidth}
       \parbox[t][\columnheight]{.9\textwidth}{
 
-        \vspace{.5cm}               % automatically nicely spaced out.
+        \vspace{1cm}               % automatically nicely spaced out.
         
-        \begin{block}{\boxnumber Cluster Contents: A Qualitative Discussion}
+        \begin{block}{\boxnumber Cluster Contents}
           
           \begin{itemize}
           \item 1024 clusters in TF
           \item 672 leaves in Kaldi
-            
+
+            \vspace{1cm}
           \item 185 new labels after mapping
             \begin{itemize}
             \item 123 / 185 are interpretable
@@ -324,6 +229,10 @@
             \end{itemize}
           \end{itemize}
           
+        \end{block}
+
+        \vfill
+        
           \begin{table}[!htbp]
             \centering
             \caption{Discovered intelligible Phoneme Clusters}
@@ -346,20 +255,134 @@
               \end{tabular}
             \end{adjustbox}
           \end{table}
+
+          \vfill
+
+
+          \begin{block}{\boxnumber Training Trends}
+                    
+            \begin{itemize}
+            \item Training Accuracy
+              \begin{itemize}
+              \item Fewer clusters in AUX == bigger influence on MAIN
+              \end{itemize}
+            \item Validation Accuracy
+              \begin{itemize}
+              \item Fewer clusters in AUX == bigger influence on MAIN
+                \end{itemize}
+          \end{itemize}
           
-        \end{block}
-        \vspace{.5cm}
+                  \end{block}
+                  
+                  \vfill
+                  
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{figs/1_3_valid_acc.png}
+        \end{figure}
+
+        \vfill
+
         
-        
-        \begin{block}{\boxnumber Acknowledgements}
-          \footnotesize{This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. (DGE-1746060). Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation.}
-        \end{block}
-        \vspace{.5cm}
-        
+
       } % end of parbox
     \end{column}
 
 
+
+
+    
+    %% %% Next column:
+    %% %% ============================================================
+    \begin{column}{0.23\textwidth}
+      \vspace{1cm}
+
+      \parbox[t][\columnheight]{.9\textwidth}{
+                
+        \begin{block}{\boxnumber Testing Setup}
+          \begin{itemize}
+          \item k-folds cross-validation ($k==6$)
+            \begin{itemize}
+            \item 511 utterances for train
+            \item 100 utterances for test
+            \end{itemize}
+          \end{itemize}
+        \end{block}
+
+                
+        \vfill
+        
+        \begin{block}{\boxnumber Results: Traditional Weighting Scheme}
+          \begin{itemize}
+          \item Loss = $((1-\alpha)*MAIN + \alpha*AUX)$
+          \item WER not better than Baseline
+          \end{itemize}
+        \end{block}
+
+        
+        \vfill
+        
+
+                  
+          \begin{table}[!htbp]
+            \centering
+            \caption{WER\% for Traditional Weighting Scheme}
+            \begin{adjustbox}{width=\textwidth}
+              \begin{tabular}{lccc}
+                \toprule
+                & $\alpha = 0.1 $ & $\alpha = 0.2 $ & $\alpha = 0.3 $\\
+                \midrule
+                Single Task Baseline  &  \multicolumn{3}{c}{$57.10$ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
+                \textbf{+ 256 k-means cluster targets}  &  $57.71$ \raisebox{.33\height}{\footnotesize{$\pm 1.59$}}   &  $57.27$ \raisebox{.33\height}{\footnotesize{$\pm 1.60$}}     & $57.89$ \raisebox{.33\height}{\footnotesize{$\pm 1.29$}} \\
+                \textbf{+ 1024 k-means cluster targets}   & $57.74$ \raisebox{.33\height}{\footnotesize{$\pm 3.17$}}    & \textbf{57.08} \raisebox{.33\height}{\footnotesize{$\pm 2.62$}}    & $57.77$ \raisebox{.33\height}{\footnotesize{$\pm 0.79$}}  \\
+                \textbf{+ 4096 k-means cluster targets}   &  $57.13$ \raisebox{.33\height}{\footnotesize{$\pm 2.45$}}  & $57.76$ \raisebox{.33\height}{\footnotesize{$\pm 1.61$}}   &   $57.72$ \raisebox{.33\height}{\footnotesize{$\pm 0.64$}}  \\
+                \bottomrule
+              \end{tabular}
+            \end{adjustbox}
+          \end{table}
+
+
+          \vfill
+          
+        
+        \begin{block}{\boxnumber Results: Simple Weighting Scheme}
+          \begin{itemize}
+          \item Loss = $(MAIN + \alpha*AUX$)
+          \item WER better than Traditional Loss
+          \item WER marginally better than Baseline (in some cases)
+          \end{itemize}
+        \end{block}        
+
+        \vfill
+        
+        
+        \begin{table}[!htbp]
+          \centering
+          \caption{WER\% for Simple Weighting Scheme}
+          \begin{adjustbox}{width=\textwidth}
+            \begin{tabular}{lccc}
+              \toprule
+              & $\alpha = 0.1 $ & $\alpha = 0.2 $ & $\alpha = 0.3 $\\
+              \midrule
+              Single Task Baseline  &  \multicolumn{3}{c}{$57.10 $ \raisebox{.33\height}{\footnotesize{$\pm 3.25$}}}     \\
+              \textbf{+ 256 k-means cluster targets}  &  $57.28 $ \raisebox{.33\height}{\footnotesize{$\pm 2.09$}}   &  $57.92 $ \raisebox{.33\height}{\footnotesize{$\pm 1.78$}}     & \textbf{56.96} \raisebox{.33\height}{\footnotesize{$\pm  .70$}} \\
+              \textbf{+ 1024 k-means cluster targets}   & $ 57.58$ \raisebox{.33\height}{\footnotesize{$\pm 2.68$}}    & \textbf{ 56.86} \raisebox{.33\height}{\footnotesize{$\pm 1.11$}}    & $57.19  $ \raisebox{.33\height}{\footnotesize{$\pm 1.31$}}  \\
+              \textbf{+ 4096 k-means cluster targets}   &  $57.78 $ \raisebox{.33\height}{\footnotesize{$\pm 2.36$}}  & $ 57.51$ \raisebox{.33\height}{\footnotesize{$\pm  2.65$}}   &  \textbf{57.03} \raisebox{.33\height}{\footnotesize{$\pm 1.48$}}  \\
+              \bottomrule
+            \end{tabular}
+          \end{adjustbox}
+        \end{table}
+        
+        \vfill
+        
+        \begin{block}{\boxnumber Acknowledgements}
+          \footnotesize{This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. (DGE-1746060). Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation.}
+        \end{block}
+
+        \vfill
+        
+        }%parbox
+    \end{column}
     
   \end{columns}
 \end{frame}
