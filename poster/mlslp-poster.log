@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2018.1.22)  29 AUG 2018 09:10
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2018.1.22)  29 AUG 2018 12:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1109,21 +1109,21 @@ File: logos/top_right.png Graphic file (type bmp)
 File: figs/heigold-2013-dnn-c.png Graphic file (type bmp)
 <figs/heigold-2013-dnn-c.png>
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 394.
+(Font)              <14.4> on input line 400.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 394.
+(Font)              <10> on input line 400.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 394.
+(Font)              <7> on input line 400.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 400.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 400.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 400.
 File: figs/tree-net.png Graphic file (type bmp)
 <figs/tree-net.png>
 
-Overfull \hbox (19.30447pt too wide) in paragraph at lines 394--394
+Overfull \hbox (19.30447pt too wide) in paragraph at lines 400--400
 [][]  
  []
 
@@ -1134,37 +1134,37 @@ File: figs/clustered.png Graphic file (type bmp)
 File: figs/mapped.png Graphic file (type bmp)
 <figs/mapped.png>
 
-Overfull \hbox (19.30447pt too wide) in paragraph at lines 394--394
+Overfull \hbox (19.30447pt too wide) in paragraph at lines 400--400
 [][]  
  []
 
 File: figs/1_point_2_1024.eps Graphic file (type eps)
 <figs/1_point_2_1024.eps>
 
-Overfull \hbox (19.30447pt too wide) in paragraph at lines 394--394
+Overfull \hbox (19.30447pt too wide) in paragraph at lines 400--400
 [][]  
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <20.74> on input line 394.
+(Font)              <20.74> on input line 400.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 394.
+(Font)              <12> on input line 400.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <20.74> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 400.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <12> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 400.
 
-Overfull \hbox (76.4898pt too wide) in paragraph at lines 394--394
+Overfull \hbox (76.4898pt too wide) in paragraph at lines 400--400
  [] 
  []
 
 
-Overfull \hbox (76.4582pt too wide) in paragraph at lines 394--394
+Overfull \hbox (76.4898pt too wide) in paragraph at lines 400--400
  [] 
  []
 
 
-Overfull \hbox (19.30447pt too wide) in paragraph at lines 394--394
+Overfull \hbox (19.30447pt too wide) in paragraph at lines 400--400
 [][]  
  []
 
@@ -1182,11 +1182,11 @@ File: logos/top_right.png Graphic file (type bmp)
 \tf@snm=\write8
 \openout8 = `mlslp-poster.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 396.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 396.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 402.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 402.
  (./mlslp-poster.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 396.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 396.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 402.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 402.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1195,7 +1195,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  22692 strings out of 492998
  405217 string characters out of 6136605
- 573283 words of memory out of 5000000
+ 573259 words of memory out of 5000000
  26146 multiletter control sequences out of 15000+600000
  34824 words of font info for 80 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
