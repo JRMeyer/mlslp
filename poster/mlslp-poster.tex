@@ -17,7 +17,7 @@
 \newcommand{\rpm}{\raisebox{.2ex}{$\scriptstyle\rpm$}}
 
 \newlength{\columnheight}
-\setlength{\columnheight}{700mm}
+\setlength{\columnheight}{725mm}
 \setlength{\tabcolsep}{12pt}
 
                   
@@ -113,7 +113,8 @@
     \begin{column}{0.23\textwidth}
 
       \parbox[t][\columnheight]{.9\textwidth}{
-                      \vspace{1cm}
+        
+        \vspace{.4cm}
 
         \begin{block}{\boxnumber Alignment}
           \begin{itemize}
@@ -140,8 +141,7 @@
         
         \vfill
         
-        \begin{block}{\boxnumber Clustering}
-                    
+        \begin{block}{\boxnumber Clustering}            
           \begin{itemize}
           \item k-means Clustering
             \begin{itemize}
@@ -180,20 +180,6 @@
           \caption{GMM-aligned training examples}
           \endminipage\hfill
         \end{figure}
-        
-        \vfill
-        
-        \begin{block}{\boxnumber DNN Training}          
-          \begin{itemize}    
-          \item DNN Acoustic model training
-            \begin{itemize}
-            \item 11 hidden layers, $ReLU$ activations
-            \item 5-epochs
-            \item $\alpha_{initial}=0.0015$ $\rightarrow$ $\alpha_{final}=0.00015$
-            \item Each task has penultimate + ultimate output layer
-            \end{itemize}
-          \end{itemize}
-        \end{block}
 
         \vfill
         
@@ -205,16 +191,12 @@
     %% ============================================================
     \begin{column}{0.23\textwidth}
       \parbox[t][\columnheight]{.9\textwidth}{
-
         \vspace{1cm}               % automatically nicely spaced out.
         
         \begin{block}{\boxnumber Cluster Contents}
           
           \begin{itemize}
-          \item 1024 clusters in TF
-          \item 672 leaves in Kaldi
-
-            \vspace{1cm}
+          \item 672 leaves in Kaldi and 1024 clusters in TF
           \item 185 new labels after mapping
             \begin{itemize}
             \item 123 / 185 are interpretable
@@ -256,33 +238,47 @@
             \end{adjustbox}
           \end{table}
 
-          \vfill
 
-
-          \begin{block}{\boxnumber Training Trends}
-                    
-            \begin{itemize}
-            \item Training Accuracy
-              \begin{itemize}
-              \item Fewer clusters in AUX == bigger influence on MAIN
-              \end{itemize}
-            \item Validation Accuracy
-              \begin{itemize}
-              \item Fewer clusters in AUX == bigger influence on MAIN
-                \end{itemize}
-          \end{itemize}
-          
-                  \end{block}
-                  
                   \vfill
-                  
-        \begin{figure}
-            \centering
-            \includegraphics[width=\linewidth]{figs/1_3_valid_acc.png}
-        \end{figure}
+        
+        \begin{block}{\boxnumber Multi-Task DNN Training Set-up}          
+          \begin{itemize}    
+          \item DNN Acoustic model training
+            \begin{itemize}
+            \item Multi-Task Time-Delay Neural Network
+            \item 5-epochs, 11 hidden layers, $ReLU$ activations
+            \item $\alpha_{initial}=0.0015$ $\rightarrow$ $\alpha_{final}=0.00015$
+            \item Each task has penultimate + ultimate output layer
+            \end{itemize}
+          \end{itemize}
+        \end{block}
 
         \vfill
 
+        \begin{figure}[!htbp]
+          \centering
+          \minipage{.8\textwidth}
+          \includegraphics[width=\linewidth]{figs/1_point_2_1024.eps}
+          \caption{Model Accuracy During Training}
+          \endminipage\hfill
+        \end{figure}
+
+        
+        \vfill
+
+        
+        \begin{block}{\boxnumber Testing Setup}
+          \begin{itemize}
+          \item k-folds cross-validation ($k==6$)
+            \begin{itemize}
+            \item 511 utterances for train
+            \item 100 utterances for test
+            \end{itemize}
+            \item Decoded with 1-gram LM      
+          \end{itemize}
+        \end{block}
+
+        \vfill
         
 
       } % end of parbox
@@ -295,22 +291,9 @@
     %% %% Next column:
     %% %% ============================================================
     \begin{column}{0.23\textwidth}
-      \vspace{1cm}
-
       \parbox[t][\columnheight]{.9\textwidth}{
-                
-        \begin{block}{\boxnumber Testing Setup}
-          \begin{itemize}
-          \item k-folds cross-validation ($k==6$)
-            \begin{itemize}
-            \item 511 utterances for train
-            \item 100 utterances for test
-            \end{itemize}
-          \end{itemize}
-        \end{block}
-
-                
-        \vfill
+          
+        \vspace{1cm}
         
         \begin{block}{\boxnumber Results: Traditional Weighting Scheme}
           \begin{itemize}
@@ -374,6 +357,29 @@
         \end{table}
         
         \vfill
+
+
+                \begin{block}{\boxnumber Discussion}
+          \begin{itemize}
+          \item Good auxiliary tasks exist (we just need to find them)
+          \item Initial Results show small improvements, given good hyper-parameters
+          \item Clustering in high-dimensional feature space isn't great
+                  \begin{itemize}
+                  \item Find better projections: LDA, source DNN activations (from well-resourced lang)
+                  \end{itemize}
+                \item Big net overfits to both tasks
+                            \begin{itemize}
+                            \item add more tasks
+                            \item use smaller net
+                            \end{itemize}
+          \end{itemize}
+        \end{block}        
+
+        \vfill
+        
+
+
+        
         
         \begin{block}{\boxnumber Acknowledgements}
           \footnotesize{This material is based upon work supported by the National Science Foundation Graduate Research Fellowship under Grant No. (DGE-1746060). Any opinion, findings, and conclusions or recommendations expressed in this material are those of the authors(s) and do not necessarily reflect the views of the National Science Foundation.}
