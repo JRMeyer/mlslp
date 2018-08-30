@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2018.1.22)  30 AUG 2018 09:54
+This is XeTeX, Version 3.14159265-2.6-0.99998 (TeX Live 2017/Debian) (preloaded format=xelatex 2018.1.22)  30 AUG 2018 10:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1063,160 +1063,160 @@ LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <38.82> not available
 File: logos/top_right.png Graphic file (type bmp)
 <logos/top_right.png>
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <32.34> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
-LaTeX Font Info:    Calculating math sizes for size <32.34> on input line 419.
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 419
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
+LaTeX Font Info:    Calculating math sizes for size <32.34> on input line 420.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 420
 .
  (/usr/share/texmf/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 419.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 420.
 
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 419
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 420
 .
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 419
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 420
 .
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <32.34> on input line 419.
+(Font)              <32.34> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <22.6379> on input line 419.
+(Font)              <22.6379> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <16.17> on input line 419.
+(Font)              <16.17> on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <22.6379> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <16.17> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 File: figs/heigold-2013-dnn-c.png Graphic file (type bmp)
 <figs/heigold-2013-dnn-c.png>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
-LaTeX Font Info:    Calculating math sizes for size <15.6> on input line 419.
+LaTeX Font Info:    Calculating math sizes for size <15.6> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <15.6> on input line 419.
+(Font)              <15.6> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.91995> on input line 419.
+(Font)              <10.91995> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7.8> on input line 419.
+(Font)              <7.8> on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <15.6> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <10.91995> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <7.8> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 File: figs/tree-net.png Graphic file (type bmp)
 <figs/tree-net.png>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 
-Overfull \hbox (20.9078pt too wide) in paragraph at lines 419--419
+Overfull \hbox (20.9078pt too wide) in paragraph at lines 420--420
 [][]  
  []
 
 File: figs/aligned.png Graphic file (type bmp)
 <figs/aligned.png>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 File: figs/clustered.png Graphic file (type bmp)
 <figs/clustered.png>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 File: figs/mapped.png Graphic file (type bmp)
 <figs/mapped.png>
-LaTeX Font Info:    Calculating math sizes for size <26.96> on input line 419.
+LaTeX Font Info:    Calculating math sizes for size <26.96> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <26.96> on input line 419.
+(Font)              <26.96> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <18.87192> on input line 419.
+(Font)              <18.87192> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <13.48> on input line 419.
+(Font)              <13.48> on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <26.96> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <18.87192> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <13.48> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 
 LaTeX Font Warning: Font shape `TU/lmss/m/sc' in size <32.34> not available
-(Font)              Font shape `TU/lmr/m/sc' tried instead on input line 419.
+(Font)              Font shape `TU/lmr/m/sc' tried instead on input line 420.
 
 
-Overfull \hbox (69.96454pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96454pt too wide) in paragraph at lines 420--420
  [] 
  []
 
 File: figs/1_point_2_1024.eps Graphic file (type eps)
 <figs/1_point_2_1024.eps>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 
-Overfull \hbox (20.9078pt too wide) in paragraph at lines 419--419
+Overfull \hbox (20.9078pt too wide) in paragraph at lines 420--420
 [][]  
  []
 
-LaTeX Font Info:    Calculating math sizes for size <22.46> on input line 419.
+LaTeX Font Info:    Calculating math sizes for size <22.46> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <22.46> on input line 419.
+(Font)              <22.46> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <15.72192> on input line 419.
+(Font)              <15.72192> on input line 420.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <11.23> on input line 419.
+(Font)              <11.23> on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <22.46> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <15.72192> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <11.23> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 419.
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 420.
 
-Overfull \hbox (69.98805pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.98805pt too wide) in paragraph at lines 420--420
  [] 
  []
 
 
-Overfull \hbox (69.98805pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.98805pt too wide) in paragraph at lines 420--420
  [] 
  []
 
 File: figs/dev_during_training.eps Graphic file (type eps)
 <figs/dev_during_training.eps>
 
-Overfull \hbox (69.96463pt too wide) in paragraph at lines 419--419
+Overfull \hbox (69.96463pt too wide) in paragraph at lines 420--420
  []$ 
  []
 
 
-Overfull \hbox (20.9078pt too wide) in paragraph at lines 419--419
+Overfull \hbox (20.9078pt too wide) in paragraph at lines 420--420
 [][]  
  []
 
@@ -1234,11 +1234,11 @@ File: logos/top_right.png Graphic file (type bmp)
 \tf@snm=\write8
 \openout8 = `mlslp-poster.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 421.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 421.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 422.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 422.
  (./mlslp-poster.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 421.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 421.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 422.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 422.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1247,7 +1247,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  22755 strings out of 492998
  406648 string characters out of 6136605
- 583005 words of memory out of 5000000
+ 583553 words of memory out of 5000000
  26195 multiletter control sequences out of 15000+600000
  50134 words of font info for 111 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
