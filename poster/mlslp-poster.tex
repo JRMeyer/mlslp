@@ -7,12 +7,30 @@
 % Portrait, A0 poster. Set scale as desired, but 1.o3 gives easily readable text when printed.
 \usepackage[orientation=portrait, size=a0, scale=1.3]{beamerposter}
 \usepackage{booktabs}
+\usepackage{xcolor}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{adjustbox}
 % Set height of page for use in arranging text boxes, after accounting for
 % heading, footer etc. This is a bit of a hack, ideally latex should figure
 % this out for itself!
+
+\makeatletter
+\newcommand{\ccell}[3][]{%
+  \kern-\fboxsep
+  \if\relax\detokenize{#1}\relax
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {\colorbox{#2}}%
+  {\colorbox[#1]{#2}}%
+  {#3}\kern-\fboxsep
+}
+\makeatother
+\definecolor{orange}{RGB}{224,115,104}
+%% \AtBeginDocument{\setlength{\cmidrulekern}{0.3em}}
+
 
 \newcommand{\rpm}{\raisebox{.2ex}{$\scriptstyle\rpm$}}
 
@@ -68,7 +86,7 @@
           \centering
           \minipage{\textwidth}
           \includegraphics[width=\linewidth]{figs/heigold-2013-dnn-c.png}
-          \caption{Multi-Task Learning Architecture}
+          \caption{Multi-Task Learning Architecture \\(Heigold et al. 2013)}
           \label{fig:mtl-dnn}
           \endminipage\hfill
         \end{figure}
@@ -98,8 +116,9 @@
         \begin{figure}[!htbp]
           \centering
           \minipage{\textwidth}
+          \centering
           \includegraphics[width=\linewidth]{figs/tree-net.png}
-          \caption{Label Correspondance of Decision Tree / DNN }
+          \caption{Label Correspondance of Decision Tree / DNN \\ \hspace{5cm} (HTK Book \& Heigold et al. 2013)}
           \label{fig:mtl-dnn}
           \endminipage\hfill
         \end{figure}
@@ -107,8 +126,9 @@
         \vfill
 
         
-        \begin{block}{\boxnumber Alignment}
+        \begin{block}{\boxnumber GMM-HMM Alignment}
           \begin{itemize}
+            \item All done in Kaldi
           \item Feature Extraction
             \begin{itemize}
             \item 13 PLP features, 25ms Hamming windows, 10ms shift, 16 frame left-context \& 12 frame right-context, CMVN
@@ -151,34 +171,29 @@
           \end{itemize}
                 \end{block}
 
-                \vfill
                 
         \begin{figure}[!htbp]
           \centering
           \minipage{\textwidth}
           \includegraphics[width=\linewidth]{figs/aligned.png}
-          \caption{GMM-aligned training examples}
+          \caption{GMM-HMM aligned Triphone States}
           \endminipage\hfill
         \end{figure}
-
-        \vfill
 
         \begin{figure}[!htbp]
           \centering
           \minipage{\textwidth}
           \includegraphics[width=\linewidth]{figs/clustered.png}
-          \caption{k-means clustered training examples}
+          \caption{K-Means Discovered Clusters}
           \endminipage\hfill
         \end{figure}
-        
-        \vfill
         
         
         \begin{figure}[!htbp]
           \centering
           \minipage{\textwidth}
           \includegraphics[width=\linewidth]{figs/mapped.png}
-          \caption{GMM-aligned training examples}
+          \caption{Voting \& Mapping of Triphone-States $\rightarrow$ Clusters}
           \endminipage\hfill
         \end{figure}
 
@@ -189,46 +204,49 @@
         \begin{block}{\boxnumber Cluster Contents}
           
           \begin{itemize}
-          \item 672 leaves in Kaldi and 1024 clusters in TF
+          \item Started with 672 triphone states in Kaldi \& 1024 clusters in TensorFlow
           \item 185 new labels after mapping
             \begin{itemize}
-            \item 123 / 185 are interpretable
-            \end{itemize}
-          \item 84 / 185 contain only one phoneme
-            \begin{itemize}
-            \item 9 / 84 contained $>1$ triphone of phoneme
-            \end{itemize}
-          \item 101 / 184  contain mixed phonemes
-            \begin{itemize}
-            \item 39 / 101 only vowels or only consonants
+            \item 75 w/ only one triphone state
+              \begin{itemize}
+              \item e.g. \{ \texttt{t+a-f} \}
+              \end{itemize}
+            \item 9 w/ $>1$ triphone of given phoneme
+              \begin{itemize}
+              \item e.g. \{ \texttt{t+a-f}, \texttt{g+a-p} \}
+              \end{itemize}
+            \item 39 w/ only vowels or only consonants
+              \begin{itemize}
+              \item e.g. \{ \texttt{t+a-f}, \texttt{p+o-k} \}
+              \end{itemize}
             \end{itemize}
           \end{itemize}
-          
         \end{block}
 
         \vfill
         
           \begin{table}[!htbp]
             \centering
-            \caption{Discovered intelligible Phoneme Clusters}
             \label{tab:results}
-            \begin{adjustbox}{width=.5\textwidth}
-              \begin{tabular}{llrr}
-                \toprule
-                \multicolumn{2}{c}{Vowels} &  \multicolumn{2}{c}{ Consonants} \\
-                \midrule
-                a  j & a  u  &   k  r &     g n m \\
-                a  o & a  ih  &    k p  &    s sh ch\\
-                e  j & e  ih & r ng & t k s p \\
-                e  y &o  u & d ch & m ng\\
-                u  ih  y   & u  ih & t k & t k h\\
-                i  e  y &o  ih & d z&t k s \\
-                a  e  oe  j ih & j ih & l z  & t ch d\\
-                a  ih  o  u  y &  &  n p & t k zh b  \\
-                &&& t g b s sh z zh \\
-                \bottomrule
+            \begin{adjustbox}{width=\textwidth}
+              \begin{tabular}{lllccrrr}
+                \cmidrule[2pt]{2-7}
+                &\multicolumn{2}{c}{Vowels} &&& \multicolumn{2}{c}{ Consonants}& \\
+                \cmidrule[1pt]{2-7}
+                &a  j & a  u           &&& k  r &     g n m&\\
+                \textsc{Back Vowels} $\rightarrow$&\ccell{orange}{a  o} & a  ih          &&&  k p  &    s sh ch&\\
+                &e  j & e  ih          &&& r ng & t k s p &\\
+                &e  y &o  u            &&& d ch & \ccell{orange}{m ng}& $\leftarrow$ \textsc{Nasals}\\
+                &u  ih  y & u  ih      &&& t k & t k h&\\
+                &i  e  y &o  ih        &&& d z&t k s &\\
+                &a  e  oe  j ih & j ih &&& l z  & t ch d&\\
+                &a  ih  o  u  y        &&&& n p & t k zh b & \\
+                &&&&&& t g b s sh z zh& \\
+                \cmidrule[2pt]{2-7}
               \end{tabular}
             \end{adjustbox}
+            \vspace{.5cm}
+            \caption{Discovered Clusters of Triphone-States}
           \end{table}
 
 
@@ -239,7 +257,7 @@
           \item DNN Acoustic model training
             \begin{itemize}
             \item Multi-Task Time-Delay Neural Network
-            \item 5-epochs, 11 hidden layers, $ReLU$ activations
+            \item 5-epochs, 11 $ReLU$ layers, 
             \item $\alpha_{initial}=0.0015$ $\rightarrow$ $\alpha_{final}=0.00015$
             \item Each task has penultimate + ultimate output layer
             \end{itemize}
@@ -251,7 +269,8 @@
         \begin{figure}[!htbp]
           \centering
           \minipage{\textwidth}
-          \includegraphics[width=\linewidth]{figs/1_point_2_1024.eps}
+          \centering
+          \includegraphics[width=.8\linewidth]{figs/1_point_2_1024.eps}
           \caption{Model Accuracy During Training (Simple Loss)}
           \endminipage\hfill
         \end{figure}
@@ -277,7 +296,10 @@
             \item 511 utterances for train
             \item 100 utterances for test
             \end{itemize}
-            \item Decoded with 1-gram LM      
+          \item Decoded with 1-gram LM
+            \begin{itemize}
+            \item \textit{Acoustic model more import}
+            \end{itemize}
           \end{itemize}
         \end{block}
 
@@ -352,14 +374,24 @@
         
         \vfill
 
+        \begin{figure}[!htbp]
+          \centering
+          \minipage{\textwidth}
+          \centering
+          \includegraphics[width=.8\linewidth]{figs/dev_during_training.eps}
+          \caption{Model Accuracy on Dev. Data During Training}
+          \endminipage\hfill
+        \end{figure}
 
+        \vfill
+        
                 \begin{block}{\boxnumber Discussion}
           \begin{itemize}
           \item Good auxiliary tasks exist (we just need to find them)
-          \item Initial Results show small improvements, given good hyper-parameters
+          \item Initial results show small improvements, given good hyper-parameters
           \item Clustering in high-dimensional feature space isn't great
                   \begin{itemize}
-                  \item Find better projections: LDA, source DNN activations (from well-resourced lang)
+                  \item Find better projections: LDA, source DNN activations (from well-resourced lang.)
                   \end{itemize}
                 \item Big net overfits to both tasks
                             \begin{itemize}
