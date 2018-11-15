@@ -122,21 +122,44 @@ The Single-Task baseline model has an identical architecture to the Multi-Task m
 Below is shown performance on the same held-out 30-minute section of Kyrgyz audiobook. Decoding is performed with a bigram backoff language model trained on a Wikipedia Kyrgyz dump, and contains, 103,998 unigrams and 56,871 bigrams. The bigram language model, lexicon, and main-task decision tree are built into a standard decoding graph (ie. a Weighted Finite State Transducer) in the traditional Kaldi pipeline. The experimental results are shown in Table (\ref{tab:results}) as percent Word Error Rate (WER). The WER of the best performing model in each data condition is displayed in bold below.
 
 
+
+
+\begin{itemize}
+\item Started with 672 triphone states in Kaldi \& 1024 clusters in TensorFlow
+\item 185 new labels after mapping
+  \begin{itemize}
+  \item 75 w/ only one triphone state
+    \begin{itemize}
+    \item e.g. \{ \texttt{t+a-f} \}
+    \end{itemize}
+  \item 9 w/ $>1$ triphone of given phoneme
+    \begin{itemize}
+    \item e.g. \{ \texttt{t+a-f}, \texttt{g+a-p} \}
+    \end{itemize}
+  \item 39 w/ only vowels or only consonants
+    \begin{itemize}
+    \item e.g. \{ \texttt{t+a-f}, \texttt{p+o-k} \}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+
 \begin{table}[!htbp]
   \centering
-  \caption{Word Error Rates (WER\%)}
-    \label{tab:results}
-  \begin{adjustbox}{width=.49\textwidth}
-    \begin{tabular}{lcc}
+  \caption{WER\% for Traditional Weighting Scheme}
+  \begin{adjustbox}{width=\textwidth}
+    \begin{tabular}{lccc}
       \toprule
-      & \multicolumn{2}{c}{ \textit{Amount of Training Data}}\\
-      & 1.59 hours & 15 minutes \\
+      & $\alpha = 0.1 $ & $\alpha = 0.2 $ & $\alpha = 0.3 $\\
       \midrule
-      STL Baseline (context-dependent triphone targets)                            & 49.56       &  83.51 \\
-      \textbf{+ 250 k-means cluster targets}        & 48.88            & 83.71 \\
-      \textbf{+ 500 k-means cluster targets}        & \textbf{47.90}       & 82.83 \\
-      \textbf{+ 1000 k-means cluster targets}        & 49.07       & \textbf{82.73} \\
-      \midrule
+      Single Task Baseline  &  \multicolumn{3}{c}{$57.55$ \raisebox{.33\height}{\footnotesize{$\pm 1.82$}}}     \\
+      
+      \textbf{+ 256 clusters}  &  $57.93$ \raisebox{.33\height}{\footnotesize{$\pm 1.63$}}   &  $57.04$ \raisebox{.33\height}{\footnotesize{$\pm 1.58$}}     & 57.66 \raisebox{.33\height}{\footnotesize{$\pm 1.24$}} \\
+      
+      \textbf{+ 1024 clusters}   & $57.69$ \raisebox{.33\height}{\footnotesize{$\pm 3.78$}}    & \textbf{56.99} \raisebox{.33\height}{\footnotesize{$\pm 3.08$}}    & $57.60$ \raisebox{.33\height}{\footnotesize{$\pm 0.79$}}  \\
+      
+      \textbf{+ 4096 clusters}   &  $57.25$ \raisebox{.33\height}{\footnotesize{$\pm 2.87$}}  & $58.07$ \raisebox{.33\height}{\footnotesize{$\pm 1.35$}}   &   $57.45$ \raisebox{.33\height}{\footnotesize{$\pm 0.32$}}  \\
       \bottomrule
     \end{tabular}
   \end{adjustbox}
@@ -144,6 +167,27 @@ Below is shown performance on the same held-out 30-minute section of Kyrgyz audi
 
 
 
+
+
+\begin{table}[!htbp]
+  \centering
+  \caption{WER\% for Simple Weighting Scheme}
+  \begin{adjustbox}{width=\textwidth}
+    \begin{tabular}{lccc}
+      \toprule
+      & $\alpha = 0.1 $ & $\alpha = 0.2 $ & $\alpha = 0.3 $\\
+      \midrule
+      Single Task Baseline  &  \multicolumn{3}{c}{$57.55$ \raisebox{.33\height}{\footnotesize{$\pm 1.82$}}}     \\
+      
+      \textbf{+ 256 clusters}  &  $57.33$ \raisebox{.33\height}{\footnotesize{$\pm 2.49$}}   &  $58.02$ \raisebox{.33\height}{\footnotesize{$\pm 2.09$}}     & $57.18$ \raisebox{.33\height}{\footnotesize{$\pm 0.56$}} \\
+      
+      \textbf{+ 1024 clusters}   & $ 57.74$ \raisebox{.33\height}{\footnotesize{$\pm 3.06$}}    & \textbf{56.88}  \raisebox{.33\height}{\footnotesize{$\pm 1.33$}}    & $57.13  $ \raisebox{.33\height}{\footnotesize{$\pm 1.55$}}  \\
+      
+      \textbf{+ 4096 clusters}   &  $57.56$ \raisebox{.33\height}{\footnotesize{$\pm 2.53$}}  & $57.49$ \raisebox{.33\height}{\footnotesize{$\pm  3.17$}}   &  $57.31$ \raisebox{.33\height}{\footnotesize{$\pm 1.31$}}  \\
+      \bottomrule
+    \end{tabular}
+  \end{adjustbox}
+\end{table}
 
 \section{Discussion}
 
